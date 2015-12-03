@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    <div id="text">通过 AJAX 改变文本</div>
+    <input type="button" id="btn" value="改变内容"/>
+</body>
+</html>
+<script type="text/javascript">
+//    $(document).ready(function(){
+//        $("#btn").click(function(){
+//            htmlObj = $.ajax({url:"/node.js(Study)/JQueryAjax/jsonTxt01.txt",async:true});
+//            $("#text").html(htmlObj.responseText);
+//        });
+//
+//    });
+    $(document).ready(function(){
+        $("#btn").click(function (){
+            xtmlObj = $.ajax({url:"/node.js(Study)/JQueryAjax/jsonTxt01.txt",async:false});
+            $("#text").html(xtmlObj.responseText);
+        });
+    });
+
+
+</script>
