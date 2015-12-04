@@ -8,6 +8,7 @@
 <body>
     <div id="text">通过 AJAX 改变文本</div>
     <input type="button" id="btn" value="改变内容"/>
+    <!--<div id="text1">ajax start</div>-->
 </body>
 </html>
 <script type="text/javascript">
@@ -18,12 +19,55 @@
 //        });
 //
 //    });
+
+
+//    $(document).ready(function(){
+//        $("#btn").click(function (){
+//            xtmlObj = $.ajax({url:"/node.js(Study)/JQueryAjax/jsonTxt01.txt",async:false});
+//
+//            $("#text").html(xtmlObj.responseText);
+//        });
+//    });
+//
     $(document).ready(function(){
-        $("#btn").click(function (){
-            xtmlObj = $.ajax({url:"/node.js(Study)/JQueryAjax/jsonTxt01.txt",async:false});
-            $("#text").html(xtmlObj.responseText);
+        $("#btn").click(function(){
+            $("#text").load("/node.js(Study)/JQueryAjax/jsonTxt01.txt h1");
         });
     });
 
 
+
+//    window.onload = function() {
+//        var text = document.getElementById("text");
+//        document.getElementById('btn').onclick = function () {
+//            var xmlHttp;
+//            if (window.XMLHttpRequest)
+//                xmlHttp = new XMLHttpRequest();
+//            else
+//                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+//
+//            xmlHttp.onreadystatechange = function () {
+//                if (xmlHttp.status == 200 && xmlHttp.readyState == 4) {
+//                    var htmlStr = xmlHttp.responseText;//获取的是一string
+//                    var node = strToNode(htmlStr);//获取到想要的html元素
+//
+//                    text.innerHTML = "";//清空text的文本节点，或许下面1，2
+//                    //1.var s = text.childNodes[0];
+//                    //2.text.removeChild(s);
+//
+//                    text.appendChild(node);//将node节点加入
+//
+//                }
+//            };
+//            xmlHttp.open("GET", "/node.js(Study)/JQueryAjax/jsonTxt01.txt", true);
+//            xmlHttp.send();
+//        }
+//    };
+//
+//    function strToNode(str){
+//        var node1 = document.createElement("div");
+//        node1.innerHTML = str;//将string变成html
+//        var s1 = node1.getElementsByTagName("h2")[0];//获取想要的节点
+//        return s1;//返回节点
+//    }
 </script>
