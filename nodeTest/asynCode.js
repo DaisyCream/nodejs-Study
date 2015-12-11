@@ -153,8 +153,21 @@ var isString = isType("String");
 //console.log('done');
 
 /*********************EventEmitter04************************/
-var events = require('events');
-var emitter = new events.EventEmitter();
+//var events = require('events');
+//var emitter = new events.EventEmitter();
+//
+//emitter.on('some_event',function(){console.log('1')});
+//
+//emitter.on('some_event',function(){console.log('1')});
+//
+//
+//var count = require('events').EventEmitter.listenerCount(emitter,'some_event');
+//
+//console.log(count);
 
-emitter.emit('error');
-console.log(1);
+
+
+
+
+
+
