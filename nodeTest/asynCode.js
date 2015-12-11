@@ -47,33 +47,34 @@ var isString = isType("String");
 
 
 /*********************解决雪崩问题（多访问，大量并发）************************/
-//var select = function(callback){//正常查询数据库
-//    db.select("SOL",function(results){
-//        callback(results);
-//    })
-//};
+var select = function(callback){//正常查询数据库
+    db.select("SOL",function(results){
+        callback(results);
+    })
+};
 
-//var select = function(callbakc){//上锁的访问数据库
-//    if(status === "ready"){
-//        status = "pending";
-//        db.select("SOL",function(result){
-//            callbakc(result);
-//        })
-//    }
-//};
+var select = function(callbakc){//上锁的访问数据库
+    if(status === "ready"){
+        status = "pending";
+        db.select("SOL",function(result){
+            callbakc(result);
+        })
+    }
+};
 
-//var proxy = new events.EventEmitter();//用事件循环的方式。
-//var status = "reayd";
-//var select = function(callback){
-//    proxy.once("selected",callback);
-//    if(status === "ready"){
-//        status = "pending";
-//        db.select("SQL",function(result){
-//            callback(result);
-//        })
-//    }
-//
-//};
+
+var proxy = new require('event').EventEmitter();//时间循环方式
+var status = "ready";
+var select = function(callback){
+    proxy.on('selected',callback);
+    if(status=='ready'){
+        status = 'pending';
+        db.select('SQL',function(result){
+            proxy.emit('selected',result);
+            status = 'ready';
+        });
+    }
+};
 
 /*********************EventEmitter************************/
 ////引入event模块
@@ -118,39 +119,39 @@ var isString = isType("String");
 
 /*********************EventEmitter03************************/
 
-var event = require('events');
-var eventEmitter = new event.EventEmitter();
-
-//listener1
-var listener1 = function(){
-    console.log('listener1 exe');
-};
-
-var listener2 = function(){
-    console.log('listener2 exe');
-};
-
-eventEmitter.addListener('connection',listener1);
-
-eventEmitter.on('connection',listener2);
-
-var eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
-console.log(eventListeners + ' connection event');
-
-//do connection event
-eventEmitter.emit('connection');
-
-//removeListener
-eventEmitter.removeListener('connection', listener1);
-console.log('listener1 can not be listener');
-
-
-eventEmitter.emit('connection');
-
-eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
-console.log(eventListeners + ' connection event');
-
-console.log('done');
+//var event = require('events');
+//var eventEmitter = new event.EventEmitter();
+//
+////listener1
+//var listener1 = function(){
+//    console.log('listener1 exe');
+//};
+//
+//var listener2 = function(){
+//    console.log('listener2 exe');
+//};
+//
+//eventEmitter.addListener('connection',listener1);
+//
+//eventEmitter.on('connection',listener2);
+//
+//var eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+//console.log(eventListeners + ' connection event');
+//
+////do connection event
+//eventEmitter.emit('connection');
+//
+////removeListener
+//eventEmitter.removeListener('connection', listener1);
+//console.log('listener1 can not be listener');
+//
+//
+//eventEmitter.emit('connection');
+//
+//eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+//console.log(eventListeners + ' connection event');
+//
+//console.log('done');
 
 /*********************EventEmitter04************************/
 //var events = require('events');
