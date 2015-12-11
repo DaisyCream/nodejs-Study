@@ -54,69 +54,69 @@ listener2 arg1 arg2
 ###3.1
 
 <table>
-	<th>
-		<td>序号</td>
-		<td>方法&描述</td>
-	</th>
-	<th>
-		<tr>1</tr>
-		<tr>
+	<tr>
+		<th>序号</th>
+		<th>方法&描述</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>
 			<p>addListenner(event,listener)</p>
 			为指定事件`添加`一个监听器到监听器数组的`尾部`。
-		</tr>
-	</th>
-	<th>
-		<tr>2</tr>
-		<tr>
+		</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>
 			<p>on(event,listener)</p>
 			<p>为指定的事件`注册`一个监听器，接受一个字符串event和一个回调函数</p>
-		</tr>
-	</th>
-	<th>
-		<tr>3</tr>
-		<tr>
+		</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>
 			<p>once(event,listener)</p>
 			<p>
 				为指定时间注册一个单次的监听器，即监听器对多只会触发一次，触发后立即解除该监听器			</p>		
-		</tr>
-	</th>
-	<th>
-		<tr>4</tr>
-		<tr>
+		</td>
+	</tr>
+	<tr>
+		<td>4</td>
+		<td>
 			<p>removeListener(event,listener)</p>
 			<p>移除指定事件的某个`监听器`，监听器必须是该事件已经注册过的监听器</p>
-		</tr>
-	</th>
-	<th>
-		<tr>5</tr>
-		<tr>
+		</td>
+	</tr>
+	<tr>
+		<td>5</td>
+		<td>
 			<p>removeAllListener(event)</p>
 			<p>移除所有事件的所有监听器，如果指定事件，则移除指定事件的所有监听器</p>
-		</tr>
-	</th>
-	<th>
-		<tr>6</tr>
-		<tr>
+		</td>
+	</tr>
+	<tr>
+		<td>6</td>
+		<td>
 			<p>setMaxListener</p>
 			<p>
 				默认情况下，EventEmitter如果你添加的监听器超过10个就会输出警告信息。				setMaxListener函数用于提交监听器的限制数量
 			</p>
-		</tr>
-	</th>
-	<th>
-		<tr>7</tr>
-		<tr>
+		</td>
+	</tr>
+	<tr>
+		<td>7</td>
+		<td>
 			<p>listener(event)</p>
 			<p>返回指定事件监听器的数组</p>
-		</tr>
-	</th>
-	<th>
-		<tr>8</tr>
-		<tr>
+		</td>
+	</tr>
+	<tr>
+		<td>8</td>
+		<td>
 			<p>emit(event,[arg1],[arg2],[...])</p>
 			<p>按参数的顺序执行每个监听器，如果事件有注册监听返回true，否会返回false</p>
-		</tr>
-	</th>
+		</td>
+	</tr>
 </table>
 
 
