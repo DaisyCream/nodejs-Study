@@ -80,16 +80,81 @@ var isString = isType("String");
 //var events = require("events");
 ////创建eventEmitter对象
 //var eventEmitter = new events.EventEmitter();
+/*********************EventEmitter01************************/
+//var EventEmitter = require('events').EventEmitter;
+//var event = new EventEmitter();
+//
+//event.on('some_event', function(){
+//    console.log('some_event 事件触发');
+//});
+//
+//setTimeout(function(){
+//    event.emit('some_event');
+//    console.log('some_event 发送事件')},1000);
 
-var EventEmitter = require('events').EventEmitter;
-var event = new EventEmitter();
+/*********************EventEmitter02************************/
+//var events = require('events');
+//var EventEmitter = events.EventEmitter;
+//var emitter = new EventEmitter();
+//
+//function callback1(arg1,arg2){
+//    console.log('listener1',arg1,arg2);
+//}
+//
+//function callback2(arg1){
+//    console.log('listener2',arg1);
+//}
+//
+//emitter.on('someEvent',callback1);
+//
+//emitter.on('someEvent', callback2);
+//
+//emitter.removeListener('someEvent',callback1);
+//
+//emitter.emit('someEvent','arg1','arg2');
+//
+//console.log(count);
 
-event.on('some_event', function(){
-    console.log('some_event 事件触发');
-});
 
-setTimeout(function(){event.emit('some_event')},1000);
+/*********************EventEmitter03************************/
 
+//var event = require('events');
+//var eventEmitter = new event.EventEmitter();
+//
+////listener1
+//var listener1 = function(){
+//    console.log('listener1 exe');
+//};
+//
+//var listener2 = function(){
+//    console.log('listener2 exe');
+//};
+//
+//eventEmitter.addListener('connection',listener1);
+//
+//eventEmitter.on('connection',listener2);
+//
+//var eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+//console.log(eventListeners + ' connection event');
+//
+////do connection event
+//eventEmitter.emit('connection');
+//
+////removeListener
+//eventEmitter.removeListener('connection', listener1);
+//console.log('listener1 can not be listener');
+//
+//
+//eventEmitter.emit('connection');
+//
+//eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+//console.log(eventListeners + ' connection event');
+//
+//console.log('done');
 
+/*********************EventEmitter04************************/
+var events = require('events');
+var emitter = new events.EventEmitter();
 
-
+emitter.emit('error');
+console.log(1);
