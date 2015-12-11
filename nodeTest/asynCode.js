@@ -118,39 +118,39 @@ var isString = isType("String");
 
 /*********************EventEmitter03************************/
 
-//var event = require('events');
-//var eventEmitter = new event.EventEmitter();
-//
-////listener1
-//var listener1 = function(){
-//    console.log('listener1 exe');
-//};
-//
-//var listener2 = function(){
-//    console.log('listener2 exe');
-//};
-//
-//eventEmitter.addListener('connection',listener1);
-//
-//eventEmitter.on('connection',listener2);
-//
-//var eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
-//console.log(eventListeners + ' connection event');
-//
-////do connection event
-//eventEmitter.emit('connection');
-//
-////removeListener
-//eventEmitter.removeListener('connection', listener1);
-//console.log('listener1 can not be listener');
-//
-//
-//eventEmitter.emit('connection');
-//
-//eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
-//console.log(eventListeners + ' connection event');
-//
-//console.log('done');
+var event = require('events');
+var eventEmitter = new event.EventEmitter();
+
+//listener1
+var listener1 = function(){
+    console.log('listener1 exe');
+};
+
+var listener2 = function(){
+    console.log('listener2 exe');
+};
+
+eventEmitter.addListener('connection',listener1);
+
+eventEmitter.on('connection',listener2);
+
+var eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+console.log(eventListeners + ' connection event');
+
+//do connection event
+eventEmitter.emit('connection');
+
+//removeListener
+eventEmitter.removeListener('connection', listener1);
+console.log('listener1 can not be listener');
+
+
+eventEmitter.emit('connection');
+
+eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+console.log(eventListeners + ' connection event');
+
+console.log('done');
 
 /*********************EventEmitter04************************/
 //var events = require('events');

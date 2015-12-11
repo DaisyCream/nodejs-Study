@@ -131,12 +131,77 @@ listener2 arg1 arg2
 
 ```
 ####3.3事件
+<table>
+	<tr>
+		<th>序号</th>
+		<th>事件&描述</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>
+			<p>newListener</p>
+			<p>该事件在添加新的监听器的时候被触发</p>
+		</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>
+			<p>removeListener</p>
+			<p>从指定监听器数组中删除一个监听器，注意，此操作将会`改变`处于被删监听器之后的那些监听器的`索引`</p>
+		</td>
+	</tr>
+</table>
 
 
-
-
+####3.4实例
 
 ```javaScript
-
+	var event = require('events');
+	var eventEmitter = new event.EventEmitter();
+	
+	//listener1
+	var listener1 = function(){
+	    console.log('listener1 exe');
+	};
+	
+	var listener2 = function(){
+	    console.log('listener2 exe');
+	};
+	
+	eventEmitter.addListener('connection',listener1);
+	
+	eventEmitter.on('connection',listener2);
+	
+	var eventListeners = 	require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+	console.log(eventListeners + ' connection event');
+	
+	//do connection event
+	eventEmitter.emit('connection');
+	
+	//removeListener
+	eventEmitter.removeListener('connection', listener1);
+	console.log('listener1 can not be listener');
+	
+	
+	eventEmitter.emit('connection');
+	
+	eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+	console.log(eventListeners + ' connection event');
+	
+	console.log('done');
 
 ```
+
+
+###4.error事件
+
+`定义`：EventEmitter 定义了一个特殊的事件 error，它包含了错误的语义，我们在遇到 异常的时候通常会触发 error 事件。当 error 被触发时，EventEmitter 规定如果没有响应的监听器，Node.js 会把它当作异常，退出程序并输出错误信息。我们一般要为会触发 error 事件的对象设置监听器，避免遇到错误后整个程序崩溃。例如：
+
+```javaScript
+	var events = require('events');
+	var emitter = new events.EventEmitter();
+	emitter.emit('error');
+
+```
+
+
