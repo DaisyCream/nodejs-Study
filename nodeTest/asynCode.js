@@ -47,34 +47,34 @@ var isString = isType("String");
 
 
 /*********************解决雪崩问题（多访问，大量并发）************************/
-var select = function(callback){//正常查询数据库
-    db.select("SOL",function(results){
-        callback(results);
-    })
-};
-
-var select = function(callbakc){//上锁的访问数据库
-    if(status === "ready"){
-        status = "pending";
-        db.select("SOL",function(result){
-            callbakc(result);
-        })
-    }
-};
-
-
-var proxy = new require('event').EventEmitter();//时间循环方式
-var status = "ready";
-var select = function(callback){
-    proxy.on('selected',callback);
-    if(status=='ready'){
-        status = 'pending';
-        db.select('SQL',function(result){
-            proxy.emit('selected',result);
-            status = 'ready';
-        });
-    }
-};
+//var select = function(callback){//正常查询数据库
+//    db.select("SOL",function(results){
+//        callback(results);
+//    })
+//};
+//
+//var select = function(callbakc){//上锁的访问数据库
+//    if(status === "ready"){
+//        status = "pending";
+//        db.select("SOL",function(result){
+//            callbakc(result);
+//        })
+//    }
+//};
+//
+//
+//var proxy = new require('event').EventEmitter();//时间循环方式
+//var status = "ready";
+//var select = function(callback){
+//    proxy.on('selected',callback);
+//    if(status=='ready'){
+//        status = 'pending';
+//        db.select('SQL',function(result){
+//            proxy.emit('selected',result);
+//            status = 'ready';
+//        });
+//    }
+//}
 
 /*********************EventEmitter************************/
 ////引入event模块
@@ -167,8 +167,20 @@ var select = function(callback){
 //console.log(count);
 
 
+/*********************偏函数************************/
+var after = function(times,callback){
+    var count = 0, result = {};
+    return function(key,value){
+        result[key] = value;
+        count++;
+        if(count === times){
+            callback(result);
+        }
+    }
 
+};
 
+var done = after(3,render);
 
 
 
