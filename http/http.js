@@ -5,7 +5,7 @@ http.createServer(function(request,response){
     response.end('Hello World\n');
 }).listen(8124);
 
-/*********************将request当做只读的数据流*********************************/
+/*********************将request当做只读的数据流**************************/
 http.createServer(function(request,response){
     var body = {};
     console.log(request.method);
@@ -22,7 +22,7 @@ http.createServer(function(request,response){
 }).listen(80);
 
 
-/*********************将response当做只写入的数据流来写入*********************************/
+/*********************将response当做只写入的数据流来写入*********************/
 http.createServer(function(request,response){
     response.writeHead(200, { 'Content-Type' : 'text/plain' });
 
