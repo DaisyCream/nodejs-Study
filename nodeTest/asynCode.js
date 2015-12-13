@@ -180,7 +180,19 @@ var after = function(times,callback){
 
 };
 
+
+var emitter = new events.EventEmitter();
+
 var done = after(3,render);
+
+emitter.on("done",done);
+
+fs.readFile(template_path, "utf-8",function(err,template){
+    emitter.emit('done',"template",template);
+});
+
+
+/*********************EventProxy************************/
 
 
 
