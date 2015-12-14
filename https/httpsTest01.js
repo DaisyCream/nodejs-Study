@@ -1,3 +1,5 @@
+
+/*****************在服务器模式下发起https请求*****************/
 //var options = {
 //    key: fs.readFileSync('./ssl/default.key'),
 //    cert: fs.readFileSync('./ssl/default.cer')
@@ -22,13 +24,17 @@
 
 
 /*****************在客户端模式下发起https请求*****************/
-var options = {
-    hostname: 'www.example.com',
-    post:443,
-    path:'/',
-    method:'GET'
-};
+//var options = {
+//    hostname: 'www.example.com',
+//    post:443,
+//    path:'/',
+//    method:'GET'
+//};
+//
+//var request = http.request(options,function(response){});
+//
+//request.end();
 
-var request = http.request(options,function(response){});
 
-request.end();
+/*****************处理HTTP请求时url模块使用率超高*****************/
+
