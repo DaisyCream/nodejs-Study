@@ -38,7 +38,7 @@ var isString = isType("String");
 //
 //};
 //
-//emitter.on("event1",function(){
+//emitter.on("event",function(){
 //
 //});
 //
@@ -80,7 +80,7 @@ var isString = isType("String");
 ////引入event模块
 //var events = require("events");
 ////创建eventEmitter对象
-//var eventEmitter = new events.EventEmitter();
+//var event = new events.EventEmitter();
 /*********************EventEmitter01************************/
 //var EventEmitter = require('events').EventEmitter;
 //var event = new EventEmitter();
@@ -120,7 +120,7 @@ var isString = isType("String");
 /*********************EventEmitter03************************/
 
 //var event = require('events');
-//var eventEmitter = new event.EventEmitter();
+//var event = new event.EventEmitter();
 //
 ////listener1
 //var listener1 = function(){
@@ -131,24 +131,24 @@ var isString = isType("String");
 //    console.log('listener2 exe');
 //};
 //
-//eventEmitter.addListener('connection',listener1);
+//event.addListener('connection',listener1);
 //
-//eventEmitter.on('connection',listener2);
+//event.on('connection',listener2);
 //
-//var eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+//var eventListeners = require('events').EventEmitter.listenerCount(event,'connection');
 //console.log(eventListeners + ' connection event');
 //
 ////do connection event
-//eventEmitter.emit('connection');
+//event.emit('connection');
 //
 ////removeListener
-//eventEmitter.removeListener('connection', listener1);
+//event.removeListener('connection', listener1);
 //console.log('listener1 can not be listener');
 //
 //
-//eventEmitter.emit('connection');
+//event.emit('connection');
 //
-//eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+//eventListeners = require('events').EventEmitter.listenerCount(event,'connection');
 //console.log(eventListeners + ' connection event');
 //
 //console.log('done');
