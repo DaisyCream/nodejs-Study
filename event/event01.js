@@ -65,4 +65,4 @@ emitter.on('step4',function(value3){
 
 emitter.emit('ste1');
 
-
+/******than********/
