@@ -5,18 +5,18 @@
 //    cert: fs.readFileSync('./ssl/default.cer')
 //};
 //
-//var server = https.createServer(options,function(request, response){
+//var serverProject01 = https.createServer(options,function(request, response){
 //     // ...
 //});
 //
 ////增加证书
 //
-//server.addContext('foo.com',{
+//serverProject01.addContext('foo.com',{
 //    key:fs.readFileSync('./ssl/foo.com.key'),
 //    cert:fs.readFileSync('./ssl/foo.com.cer')
 //});
 //
-//server.addContext('bar.com' , {
+//serverProject01.addContext('bar.com' , {
 //    key:fs.readFileSync('./ssl/bar.com.key'),
 //    cert:fs.readFileSync('./ssl/bar.com.cer')
 //
