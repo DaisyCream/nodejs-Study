@@ -168,31 +168,33 @@ var isString = isType("String");
 
 
 /*********************偏函数************************/
-var after = function(times,callback){
-    var count = 0, result = {};
-    return function(key,value){
-        result[key] = value;
-        count++;
-        if(count === times){
-            callback(result);
-        }
-    }
-
-};
-
-
-var emitter = new events.EventEmitter();
-
-var done = after(3,render);
-
-emitter.on("done",done);
-
-fs.readFile(template_path, "utf-8",function(err,template){
-    emitter.emit('done',"template",template);
-});
+//var after = function(times,callback){
+//    var count = 0, result = {};
+//    return function(key,value){
+//        result[key] = value;
+//        count++;
+//        if(count === times){
+//            callback(result);
+//        }
+//    }
+//
+//};
+//
+//
+//var emitter = new events.EventEmitter();
+//
+//var done = after(3,render);
+//
+//emitter.on("done",done);
+//
+//fs.readFile(template_path, "utf-8",function(err,template){
+//    emitter.emit('done',"template",template);
+//});
 
 
 /*********************EventProxy************************/
+
+var events = new require('Events').EventEmitter();
 
 
 

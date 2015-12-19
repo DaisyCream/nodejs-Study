@@ -25,7 +25,7 @@ exports.listen = function(){
            socket.emit('rooms', io.sockets.manager.room);
         });
 
-        handleCliemtDisconnection(socket, nickNames, namesUsed);
+        handleClientDisconnection(socket, nickNames, namesUsed);
     });
 };
 
