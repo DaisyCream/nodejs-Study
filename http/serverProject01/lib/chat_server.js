@@ -40,20 +40,20 @@ function assignGuestName(socket, guestNumber, nickNames, nameUsed){
     return guestNumber + 1;
 }
 
-function joinRoom(socket, room){
+function joinRoom(socket, room) {
     socket.join(room);
     currentRoom[socket.id] = room;
     socket.emit('joinResult', {room: room});
-    socket.broadcast.to(room).emit('message',{
+    socket.broadcast.to(room).emit('message', {
         text: nickNames[socket.id] + "has joined " + room + '.'
     });
 
     var usersInRoom = io.socket.clients(room);
-    if(usersInRoom.length>1){
+    if (usersInRoom.length > 1) {
         var usersInRoomSummary = 'User currently in ' + room + ': ';
-        for(var index in usersInRoom){
+        for (var index in usersInRoom) {
             var userSocketId = usersInRoom[index].id;
-            if(userSocketId != socket.id){
+            if (userSocketId != socket.id) {
                 usersInRoomSummary += ', ';
             }
             usersInRoomSummary += nickNames[userSocketId];
@@ -61,4 +61,36 @@ function joinRoom(socket, room){
     }
     usersInRoomSummary += '.';
     socket.emit('message', {text: usersInRoomSummary});
+
+}
+
+function handleNameChangeAttempts(socket, nickNames, namesUsed){
+    socket.on('nameAttempts',  function(name){
+        if(name.indexOf('Guest') == 0){
+            socket.emit('nameResult', {
+               success: false,
+               message: 'Name cannot begin with "Guest".'
+            });
+        }else{
+            if(namesUsed.indexOf(name) == -1){
+                var previousName = nickNames[socket.id];
+                var previousNameIndex = namesUsed.indexOf(previousName);
+                namesUsed.push(name);
+                nickNames[socket.id] = name;
+                delete namesUsed[previousNameIndex];
+                socket.emit('nameResult', {
+                    success: true,
+                    name: name
+                });
+                socket.broadcast.to(currentRoom[socket.id]).emit('message',{
+                    text: previousName + 'is now know as ' + name + '.'
+                });
+            }else{
+                socket.emit('nameResult',{
+                    success: false,
+                    massage: 'That name is already in use'
+                });
+            }
+        }
+    });
 }
