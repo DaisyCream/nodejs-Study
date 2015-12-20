@@ -94,3 +94,39 @@ function handleNameChangeAttempts(socket, nickNames, namesUsed){
         }
     });
 }
+
+
+/***
+ * user send the massage
+ * @param socket
+ */
+function handleMessageBroadcasting(socket){
+    socket.on('message', function(message){
+        socket.broadcast.to(message).emit('message',{
+            text: nickNames[socket.id] + ": " + message.text
+        });
+    });
+}
+
+function handleRoomJoining(socket){
+    socket.on('join', function(room){
+        socket.leave(currentRoom[socket.id]);
+        joinRoom(socket, room.newRoom);
+    });
+}
+
+function handleClientDisconnection(socket){
+    socket.on('disconnect',function(){
+        var nameIndex = namesUsed.indexOf(nickNames[socket.id]);
+        delete namesUsed[nameIndex];
+        delete nickNames[socket.id];
+    });
+}
+
+
+
+
+
+
+
+
