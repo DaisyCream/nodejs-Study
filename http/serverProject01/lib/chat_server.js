@@ -8,7 +8,7 @@ var nickNames = {};
 var namesUsed = [];
 var currentRoom = {};
 
-exports.listen = function(){
+exports.listen = function(server){
     io = socketio.listen(server);
     io.set('log level', 1);
 
@@ -48,15 +48,19 @@ function joinRoom(socket, room) {
         text: nickNames[socket.id] + "has joined " + room + '.'
     });
 
-    var usersInRoom = io.socket.clients(room);
+    console.log();
+    var usersInRoom = io.sockets[0].client(room);
+
     if (usersInRoom.length > 1) {
         var usersInRoomSummary = 'User currently in ' + room + ': ';
         for (var index in usersInRoom) {
             var userSocketId = usersInRoom[index].id;
             if (userSocketId != socket.id) {
-                usersInRoomSummary += ', ';
+                if (index > 0) {
+                    usersInRoomSummary += ', ';
+                }
+                usersInRoomSummary += nickNames[userSocketId];
             }
-            usersInRoomSummary += nickNames[userSocketId];
         }
     }
     usersInRoomSummary += '.';

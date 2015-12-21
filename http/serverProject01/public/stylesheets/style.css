@@ -38,6 +38,10 @@ a{
     border-bottom: 1px solid #eeeeee;
 }
 
+#room-list div:hover{
+    background-color: #dddddd;
+}
+
 #send-message{
     width: 700px;
     margin-bottom: 1em;
