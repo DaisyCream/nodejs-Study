@@ -49,23 +49,23 @@ function joinRoom(socket, room) {
         text: nickNames[socket.id] + "has joined " + room + '.'
     });
 
-    console.log(io.sockets);
-    //var usersInRoom = io.sockets.client(room);
-
-    if (usersInRoom.length > 1) {
-        var usersInRoomSummary = 'User currently in ' + room + ': ';
-        for (var index in usersInRoom) {
-            var userSocketId = usersInRoom[index].id;
-            if (userSocketId != socket.id) {
-                if (index > 0) {
-                    usersInRoomSummary += ', ';
-                }
-                usersInRoomSummary += nickNames[userSocketId];
-            }
-        }
-    }
-    usersInRoomSummary += '.';
-    socket.emit('message', {text: usersInRoomSummary});
+    //console.log(io.sockets);
+    //var usersInRoom = io.sockets.clients(room);
+    //
+    //if (usersInRoom.length > 1) {
+    //    var usersInRoomSummary = 'User currently in ' + room + ': ';
+    //    for (var index in usersInRoom) {
+    //        var userSocketId = usersInRoom[index].id;
+    //        if (userSocketId != socket.id) {
+    //            if (index > 0) {
+    //                usersInRoomSummary += ', ';
+    //            }
+    //            usersInRoomSummary += nickNames[userSocketId];
+    //        }
+    //    }
+    //}
+    //usersInRoomSummary += '.';
+    socket.emit('message', {text: 123});
 
 }
 
