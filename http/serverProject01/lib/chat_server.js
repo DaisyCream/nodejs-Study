@@ -2,6 +2,7 @@
  * Created by DaisyCream on 15/12/18.
  */
 var socketio = require('socket.io');
+//var socketioClient = require('socket.io-client');
 var io;
 var guestNumber = 1;
 var nickNames = {};
@@ -48,8 +49,8 @@ function joinRoom(socket, room) {
         text: nickNames[socket.id] + "has joined " + room + '.'
     });
 
-    console.log();
-    var usersInRoom = io.sockets[0].client(room);
+    console.log(io.sockets);
+    //var usersInRoom = io.sockets.client(room);
 
     if (usersInRoom.length > 1) {
         var usersInRoomSummary = 'User currently in ' + room + ': ';
