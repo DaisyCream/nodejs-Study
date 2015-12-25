@@ -33,12 +33,13 @@ var fs = require('fs');
 
 http.createServer(function(req, res){
     getTitles(res);
-}).listen(8000, '127.0.0.1');
+}).listen(3000, '127.0.0.1');
 
 function getTitles(res){
     fs.readFile('./titles.json', function(err, data){
        if(err)
            return handleErr(err,res);
+        console.log(data);
         getTemplate(JSON.parse(data.toString()), res);
     });
 }
@@ -55,7 +56,8 @@ function getTemplate(data, res){
 }
 
 function formatHtml(data, temp, res){
-    var html = temp.replace('&',data.join('</li><li>'));
+    console.log(typeof temp.replace);
+    var html = temp.replace('%',data.join('</li><li>'));
     res.writeHead(200,{
         'Content-Type': 'text/html'
     });
@@ -66,3 +68,5 @@ function handleErr(err, res){
     console.log(err);
     res.end(err);
 }
+
+console.log("Server running at http://127.0.0.1:3000/");
