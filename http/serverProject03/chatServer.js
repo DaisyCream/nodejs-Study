@@ -7,12 +7,18 @@ channel.subscriptions = {};
 
 channel.on('join',function(id, client){
     this.clients[id] = client;
+    console.log(id);
     this.subscriptions[id] = function(senderId, message){
         if(id != senderId){
             this.clients[id].write(message);
         }
     };
     this.on('broadcast', this.subscriptions[id]);
+
+});
+
+channel.on('leave',function(id){
+    this.removeListener('broadcast',this.subscriptions[id]);
 });
 
 
@@ -23,9 +29,13 @@ var server = net.createServer(function(client){
     });
 
     client.on('data', function(data){
-        data = data.toArray();
-        this.emit('broadcast', id, data);
-    })
+        data = data.toString();
+        channel.emit('broadcast', id, data);
+    });
+    
+    client.on('close', function(id){
+        channel.emit('leave',id);
+    });
 
 });
 
