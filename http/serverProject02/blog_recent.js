@@ -56,8 +56,6 @@ function getTemplate(data, res){
 }
 
 function formatHtml(data, temp, res){
-    //console.log(data);
-    //var html = temp.replace('%',"sd");
     var html = temp.replace('%',data.join('</li><li>'));
     res.writeHead(200,{
         'Content-Type': 'text/html'
