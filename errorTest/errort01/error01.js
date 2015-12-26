@@ -4,7 +4,7 @@ var emitter = new events.EventEmitter();
 
 fs.readFile('./error01.txt',function(err, data){
     if(err){
-        return emitter.emit('error', err);
+        return emitter.emit('error', new Error(err));
     }
     console.log(data.toString());
 });

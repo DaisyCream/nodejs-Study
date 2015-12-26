@@ -39,8 +39,8 @@ function getTitles(res){
     fs.readFile('./titles.json', function(err, data){
        if(err)
            return handleErr(err,res);
-        console.log(data);
-        getTemplate(JSON.parse(data.toString()), res);
+        //console.log(data);
+        getTemplate(JSON.parse(data), res);
     });
 }
 
@@ -50,13 +50,14 @@ function getTemplate(data, res){
         if(err){
             handleErr(err);
         }else{
-            formatHtml(data,temp,res);
+            formatHtml(data,temp.toString(),res);
         }
     })
 }
 
 function formatHtml(data, temp, res){
-    console.log(typeof temp.replace);
+    //console.log(data);
+    //var html = temp.replace('%',"sd");
     var html = temp.replace('%',data.join('</li><li>'));
     res.writeHead(200,{
         'Content-Type': 'text/html'

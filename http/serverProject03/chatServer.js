@@ -14,7 +14,6 @@ channel.on('join',function(id, client){
         }
     };
     this.on('broadcast', this.subscriptions[id]);
-
 });
 
 channel.on('leave',function(id){
