@@ -21,6 +21,10 @@ channel.on('leave',function(id){
     this.removeListener('broadcast',this.subscriptions[id]);
 });
 
+channel.on('shutdown',function(){
+    channel.emit('broadcast',id , id+"is shutdown");
+    channel.removeAllListeners('broadcast');
+});
 
 var server = net.createServer(function(client){
     var id = client.remoteAddress + ":" + client.remotePort;
@@ -30,6 +34,9 @@ var server = net.createServer(function(client){
 
     client.on('data', function(data){
         data = data.toString();
+        if(data=='shutdown/r/n'){
+            channel.emit('shutdown');
+        }
         channel.emit('broadcast', id, data);
     });
     
