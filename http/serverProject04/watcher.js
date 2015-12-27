@@ -3,16 +3,15 @@ var fs = require('fs');
 var events = require('events');
 var util = require('util');
 
-function watcher(watchDir, processDir){
+function Watcher(watchDir, processDir){
     this.watchDir = watchDir;
     this.processDir = processDir;
 }
 
+util.inherits(Watcher, events.EventEmitter);
+//Watcher.prototype = new events.EventEmitter();
 
-util.inherits(watcher, events.EventEmitter);
-//watcher.prototype = new events.EventEmitter();
-
-watcher.prototype.watch = function(){
+Watcher.prototype.watch = function(){
     var watcher = this;
     fs.readdir(this.watchDir,function(err, files){
         if(err) throw err;
@@ -22,11 +21,9 @@ watcher.prototype.watch = function(){
     });
 };
 
-watcher.prototype.start = function(){
-    var watcher = this;
-    fs.watchFile(this.watchDir, function(){
-        watcher.watch();
-    });
+
+Watcher.prototype.start = function(){
+    this.watch();
 };
 
 
@@ -34,7 +31,7 @@ watcher.prototype.start = function(){
 var watchDir = './watch';
 var processDir = './done';
 
-var watchers = new watcher(watchDir, processDir);
+var watchers = new Watcher(watchDir, processDir);
 
 watchers.on('process' ,function(file){
     var watchFile = this.watchDir + '/' + file;
@@ -46,3 +43,4 @@ watchers.on('process' ,function(file){
 
 });
 
+watchers.start();
