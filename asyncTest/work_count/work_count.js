@@ -6,9 +6,10 @@ var filesDir = './text';
 
 function checkIfComplete(){
     completeTasks++;
+
     if(completeTasks == tasks.length){
         for(var index in wordCounts){
-            console.log(index +': '+ wordCounts[index]);
+            console.log(index + ': ' + wordCounts[index]);
         }
     }
 }
@@ -19,24 +20,25 @@ function countWordsInText(text){
                 .toLowerCase()
                 .split(/\w+/)
                 .sort();
+
     for(var index in words){
         var word = words[index];
         if(word){
-            wordCounts[word] = (wordCounts[word]) ? wordCounts[word]+1:1;
+            wordCounts[word] = (wordCounts[word]) ? wordCounts[word]+1 : 1;
         }
     }
 }
 
-fs.readdir(filesDir, function(err, files){
-    if(err) throw err;
+fs.readdir(filesDir,function(err, files){
+    if(err) return err;
     for(var index in files){
         var task = (function(file){
             return function(){
                 fs.readFile(file, function(err, text){
-                    if(err) throw err;
+                    if(err)  throw err;
                     countWordsInText(text);
                     checkIfComplete();
-                })
+                });
             }
         })(filesDir + '/' + files[index]);
         tasks.push(task);
@@ -44,5 +46,7 @@ fs.readdir(filesDir, function(err, files){
     for(var task in tasks){
         tasks[task]();
     }
-
 });
+
+
+
