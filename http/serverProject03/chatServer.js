@@ -20,7 +20,7 @@ channel.on('leave', function(id){
     this.removeListener('broadcast', this.subscriptions[id]);
 });
 
-channel.on('shutdown', function(){
+channel.on('shutdown', function(id){
     channel.emit('broadcast', id, id + "is shutdown");
     this.removeAllListeners('broadcast');
 });
@@ -32,10 +32,12 @@ var server = net.createServer(function(client){
         channel.emit('join', id, client);
     });
 
+    client.emit('connect');
+
     client.on('data', function(data){
         data = data.toString();
         if(data == 'shutdown/n'){
-            channel.emit('shutdown');
+            channel.emit('shutdown', id);
         }
         channel.emit('broadcast', id, data);
     });
