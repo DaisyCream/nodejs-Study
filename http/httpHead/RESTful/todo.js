@@ -17,6 +17,10 @@ var server = http.createServer(function(req, res){
             var item = '';
             req.setEncoding('utf8');
             req.on('data', function(chunk){
+                if(chunk.toString().slice(1,7) == 'DELETE'){
+                    deleteBody(req,res);
+                    return;
+                }
                 item += chunk;
             });
             req.on('end', function(){
@@ -25,13 +29,42 @@ var server = http.createServer(function(req, res){
             });
             break;
         case 'GET':
-            items.forEach(function(item, i){
-                res.write(i + ')' + item + '\n');
-            });
-            res.end();
+            getBody(res);
             break;
     }
 });
+
+/***
+ * 为了提高速度，加入了头部
+ * @param res
+ */
+
+function getBody(res){
+    var body = items.map(function(item, i){
+        return i + ') ' + item;
+    }).join('\n');
+
+    body+='\n';
+    res.setHeader('Content-Length', Buffer.byteLength(body));
+    res.setHeader('Content-Type', 'text/plain; charset = "utf-8"');
+    res.end(body);
+}
+
+function deleteBody(req, res){
+    var path = url.parse(req.url).pathname;
+    var i = parseInt(path.slice(1), 10);
+
+    if(isNaN(i)){
+        res.statusCode = 400;
+        res.end('Invalid item id');
+    }else if(!items[i]){
+        res.statusCode = 404;
+        res.end('Item not found');
+    }else {
+        items.splice(i,1);
+        res.end('OK\n');
+    }
+}
 
 server.listen(8888);
 console.log('Server running at 127.0.0.1:8888/');
