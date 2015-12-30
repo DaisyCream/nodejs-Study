@@ -14,23 +14,18 @@ var items = [];
 var server = http.createServer(function(req, res){
     switch(req.method){
         case 'POST':
-            var item = '';
-            req.setEncoding('utf8');
-            req.on('data', function(chunk){
-                if(chunk.toString().slice(1,7) == 'DELETE'){
-                    deleteBody(req,res);
-                    return;
-                }
-                item += chunk;
-            });
-            req.on('end', function(){
-                items.push(item);
-                res.end('OK\n');
-            });
+            addData(req, res);
             break;
         case 'GET':
             getBody(res);
             break;
+        case 'DELETE'://DELETE /1
+            deleteBody(req, res);
+            break;
+        case 'PUT'://PUT /1
+            putBody(req, res);
+            break;
+
     }
 });
 
@@ -38,6 +33,18 @@ var server = http.createServer(function(req, res){
  * 为了提高速度，加入了头部
  * @param res
  */
+
+function addData(req, res){
+    var item = '';
+    req.setEncoding('utf8');
+    req.on('data', function(chunk){
+        item += chunk;
+    });
+    req.on('end', function(){
+        items.push(item);
+        res.end('OK\n');
+    });
+}
 
 function getBody(res){
     var body = items.map(function(item, i){
@@ -63,6 +70,26 @@ function deleteBody(req, res){
     }else {
         items.splice(i,1);
         res.end('OK\n');
+    }
+}
+
+function putBody(req, res){
+    var path = url.parse(req.url).pathname;
+    var i = parseInt(path.slice(1), 10);
+
+    if(isNaN(i)){
+        res.statusCode = 400;
+        res.end('Invalid item id');
+    }else if(!items[i]){
+        res.statusCode = 404;
+        res.end('Item not found');
+    }else{
+        var item = '';
+        req.setEncoding('utf8');
+        req.on('data', function(chunk){
+            item+=chunk;
+        });
+        items[i] = item;
     }
 }
 
