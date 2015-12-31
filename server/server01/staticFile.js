@@ -6,7 +6,8 @@ var parse = require('url').parse;
 var root = __dirname;
 
 var server = http.createServer(function(req, res){
-    var path = join(root, req.url);
+    var urlObj = parse(req.url);
+    var path = join(root, urlObj.pathname);
     var stream = fs.createReadStream(path);
 
     //stream.on('data', function(chunk){
@@ -16,8 +17,11 @@ var server = http.createServer(function(req, res){
     //stream.on('end', function(){
     //    res.end();
     //});
-    res.pipe(stream);
-    res.end();
+    stream.pipe(res);
+    stream.on('error', function(err){
+        res.statusCode = 500;
+        res.end('Internal server error ' + err);
+    });
 
 });
 
