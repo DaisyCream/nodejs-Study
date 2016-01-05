@@ -49,6 +49,10 @@ function isFormData(req){
     return 0 == type.indexOf("multipart/form-data");
 }
 
+server.listen(3000);
+console.log('Server running at 127.0.0.1:3000/');
+
+
 /***
  * formidable流式解析器让它成为上传文件的最佳人选，它能随着数据块的上传接受
  * 它们并且解析，并吐出特定的部分,不会因为大量缓冲造成内存膨胀
@@ -69,7 +73,7 @@ function isFormData(req){
  *  res.end('Upload complete');
  * });
  *
- * form.parse(function(err, filed, file){
+ * form.parse(req, function(err, filed, file){
  * console.log(filed);
  * console.log(file);
  * res.end('Upload complete');
