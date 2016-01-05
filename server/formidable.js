@@ -1,13 +1,16 @@
 var http = require('http');
 var formidable = require('formidable');
+var url = require('url');
 
 var server = http.createServer(function(req, res){
     if(req.url == '/'){
         switch(req.method){
             case 'GET':
+                //console.log(req.headers);
                 show(req, res);
                 break;
-            case 'Post':
+            case 'POST':
+                console.log(req.headers['content-type']);
                 unload(req, res);
                 break;
         }
@@ -22,12 +25,13 @@ var server = http.createServer(function(req, res){
  */
 function show(req, res){
     var html = '' +
-        '<form action="/" method="get" enctype="multipart/form-data">' +
+        '<html><head><title>formidable</title></head>' +
+        '<body><form action="/" method="POST" enctype="multipart/form-data">' +
         '<p><input type="text" name="name"></p>' +
         '<p><input type="file" name="file"></p>' +
         '<p><input type="submit" name="Upload"></p>' +
-        '</form>';
-    res.setHeader('Content-Type', 'text.html');
+        '</form></body></html>';
+    res.setHeader('Content-Type', 'text/html');
     res.setHeader('Content-Length', Buffer.byteLength(html));
     res.end(html);
 }
@@ -35,17 +39,26 @@ function show(req, res){
 function unload(req, res) {
     if (!isFormData(req)) {
         res.statusCode = 400;
-        res.end("Bad Request: expection multipart/from-data");
+        res.end("Bad Request: expection multipart/form-data");
         return;
     }
-
-
     var form = new formidable.IncomingForm();
+    form.on('filed',function(filed, value){//收完输入域后会发出filed事件
+        console.log(filed);
+        console.log(value);
+    });
+    form.on('file',function(name, file){//收完输入域后会发出filed事件
+        console.log(name);
+        console.log(file);
+    });
+    form.on('end',function(){//收完输入域后会发出filed事件
+        console.log('Upload complete!');
+    });
     form.parse(req);
 }
 
 function isFormData(req){
-    var type = req.headers['Content-Type'] || '';
+    var type = req.headers['content-type'] || '';
     return 0 == type.indexOf("multipart/form-data");
 }
 
