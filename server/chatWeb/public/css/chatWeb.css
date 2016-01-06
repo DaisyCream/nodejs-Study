@@ -8,8 +8,8 @@ body{
     font-size: 60px;
     text-align: center;
     font-weight: bold;
-    color: #eb4960;
-    text-shadow: 1px 1px 2px #872937;
+    color: #f4837d;
+    text-shadow: 1px 1px 5px #f0495d;
     position: relative;
     top: 30px;
 }
@@ -20,10 +20,11 @@ body{
     height: 350px;
     position: relative;
     margin: 80px auto;
-    overflow: hidden;
+    overflow: scroll;
     background-color: #f4837d;
-    box-shadow: inset 0px 0px 10px #872937;
+    box-shadow: inset 0px 0px 10px #cb3d4e;
     padding: 0px 20px 0px 20px;
+    border-radius: 6px;
 }
 
 #screen .chatContent{
@@ -47,7 +48,7 @@ body{
     width: 70%;
     position: relative;
     margin: auto;
-    top: -80px;
+    top: -70px;
     color: #eb4960;
     padding: 20px;
     text-shadow: 1px 1px 2px #872937;
@@ -80,6 +81,11 @@ body{
     border-radius: 6px;
     position: relative;
     margin-left: 10px;
-    box-shadow: 1px 1px 4px #27363b;
+
     font-size: 17px;
+    cursor: pointer;
+}
+
+#userInput #btn:hover{
+    box-shadow: 1px 1px 4px #27363b;
 }
