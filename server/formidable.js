@@ -1,6 +1,8 @@
 var http = require('http');
 var formidable = require('formidable');
 var url = require('url');
+var util = require('util');
+var fs = require('fs');
 
 var server = http.createServer(function(req, res){
     if(req.url == '/'){
@@ -10,7 +12,7 @@ var server = http.createServer(function(req, res){
                 show(req, res);
                 break;
             case 'POST':
-                console.log(req.headers['content-type']);
+                //console.log(req.headers['content-type']);
                 unload(req, res);
                 break;
         }
@@ -36,6 +38,7 @@ function show(req, res){
     res.end(html);
 }
 
+
 function unload(req, res) {
     if (!isFormData(req)) {
         res.statusCode = 400;
@@ -43,18 +46,15 @@ function unload(req, res) {
         return;
     }
     var form = new formidable.IncomingForm();
-    form.on('filed',function(filed, value){//收完输入域后会发出filed事件
-        console.log(filed);
-        console.log(value);
+    form.uploadDir = '/tmp';
+    form.parse(req, function(error, fields, files){
+        res.writeHead(200, {'Content-type': 'text/plain'});
+        res.write('received upload:\n\n');
+        console.log(files.file.path);
+        //console.log(files.upload);
+        fs.rename(files.file.path, './mi/'+fields.name + '.png');
+        res.end(util.inspect({fields: fields, files: files}));
     });
-    form.on('file',function(name, file){//收完输入域后会发出filed事件
-        console.log(name);
-        console.log(file);
-    });
-    form.on('end',function(){//收完输入域后会发出filed事件
-        console.log('Upload complete!');
-    });
-    form.parse(req);
 }
 
 function isFormData(req){
