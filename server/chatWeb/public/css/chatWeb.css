@@ -1,0 +1,85 @@
+body{
+    background-color: #c7dac6;
+    margin: 0px;
+}
+
+#title{
+    width: 100%;
+    font-size: 60px;
+    text-align: center;
+    font-weight: bold;
+    color: #eb4960;
+    text-shadow: 1px 1px 2px #872937;
+    position: relative;
+    top: 30px;
+}
+
+#screen{
+    width: 78%;
+    /*padding-top: 1px;*/
+    height: 350px;
+    position: relative;
+    margin: 80px auto;
+    overflow: hidden;
+    background-color: #f4837d;
+    box-shadow: inset 0px 0px 10px #872937;
+    padding: 0px 20px 0px 20px;
+}
+
+#screen .chatContent{
+    width: 100%;
+    margin-top: 14px;
+    font-size: 17px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#screen .chatContent .userName{
+    color: #27363b;
+}
+
+#screen .chatContent .content{
+    position: relative;
+    margin-left: 10px;
+}
+
+#userInput{
+    width: 70%;
+    position: relative;
+    margin: auto;
+    top: -80px;
+    color: #eb4960;
+    padding: 20px;
+    text-shadow: 1px 1px 2px #872937;
+    font-size: 20px;
+}
+
+#userInput #inputText{
+    width: 75%;
+    height: 30px;
+    color: #eb4960;
+    background-color: #fcceaa;
+    border: 0px;
+    border-radius: 6px;
+
+    position: relative;
+    margin-left: 10px;
+    box-shadow: inset 0px 0px 10px #b69e8b;
+    font-size: 17px;
+    padding-left: 8px;
+}
+
+#userInput #btn{
+    width: 10%;
+    height: 25px;
+    text-align: center;
+    line-height: 18px;
+    background-color: #27363b;
+    color: #ffffff;
+    border: 0px;
+    border-radius: 6px;
+    position: relative;
+    margin-left: 10px;
+    box-shadow: 1px 1px 4px #27363b;
+    font-size: 17px;
+}
