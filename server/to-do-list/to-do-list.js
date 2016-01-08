@@ -13,10 +13,10 @@ var server = http.createServer(function(req, res){
                 getData(req, res);
                 break;
             default :
-                console.log('Request method is error');
-                res.statusCode = 400;
+                badRequset(res);
         }
-
+    }else{
+        reqError(res);
     }
 });
 
@@ -37,18 +37,6 @@ function sendData(res){
         '</from>' +
         '</body></html>';
 
-    //var  html = '<html><head><title>Todo List</title></head><body>' +
-    //    '<h1>Todo List</h1>' +
-    //    '<ul>' +
-    //    list.map(function(item){
-    //        return '<li>'+ item +'</li>';
-    //    }).join('') +
-    //    '</ul>' +
-    //    '<form method="post" action="/">' +
-    //    '<p><input type="text" name = "item"></p>' +
-    //    '<p><input type="submit" value="Add Item"></p>' +
-    //    '</form></body></html>';
-
     res.writeHead('Content-Type', 'text/html');
     res.writeHead('Content-Length', Buffer.byteLength(html));
     res.end(html);
@@ -63,7 +51,6 @@ function getData(req, res){
         body += chunk;
     });
     req.on('end', function(){
-        //console.log(typeof body);
         var obj = qs.parse(body);
         console.log(obj);
         list.push(obj.listThing);
@@ -71,11 +58,19 @@ function getData(req, res){
     });
 }
 
+function badRequset(res){
+    res.statusCode = 400;
+    res.end('bad request');
+}
+
+function reqError(res){
+    res.statusCode = 404;
+    res.end("Request method is error");
+}
+
 
 server.listen(3000);
 console.log('Server running at 127.0.0.1:3000/');
-
-
 
 
 

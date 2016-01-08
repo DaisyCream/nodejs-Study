@@ -1,0 +1,6 @@
+{
+  "name" : "realtime-server",
+  "description" : "It's my first realtime-server",
+  "main" : "./server.js",
+  "dependencies" : {}
+}

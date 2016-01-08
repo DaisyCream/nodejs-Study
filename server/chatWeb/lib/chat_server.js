@@ -8,14 +8,19 @@ chatMsg.guestName = {};
 chatMsg.sendMesTo = {};
 
 exports.listen = function(server){
-    var io = socketIo.listen(server);
-    //io.set('log level ', 1);
+    io = socketIo.listen(server);
 
+
+    //console.log(io.sockets);
     io.sockets.on('connect', function(socket){
         console.log(socket.id);
         chatMsg.guestName[socket.id] = 'Guest' + chatMsg.guestNumber;
         chatMsg.guestNumber++;
     });
+
+
+    
+
 
 
 };
