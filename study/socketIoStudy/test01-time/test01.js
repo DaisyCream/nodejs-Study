@@ -15,6 +15,10 @@ function tick(){
     io.sockets.send(now);
 }
 
+//io.sockets.on('connect', function(socket){
+//    console.log(socket);
+//});
+
 setInterval(tick, 1000);
 
 app.listen(8888,function(){

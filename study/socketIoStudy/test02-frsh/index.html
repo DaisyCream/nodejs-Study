@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Socket Io dynamically reloading CSS shylesheets</title>
+        <link rel="stylesheet" type="text/css" href="./header.css"/>
+        <link rel="stylesheet" type="text/css" href="./styles.css"/>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function(){
+            var socket = io.connect();
+
+            socket.on('reload', function(){
+                window.location.reload();
+            });
+
+            socket.on('stylesheet', function(sheet){
+                var link = document.createElement('link');
+                var head = document.getElementsByTagName('head')[0];
+                link.setAttribute('rel', 'stylesheet');
+                link.setAttribute('type', 'text/css');
+
+                console.log('change');
+
+                link.setAttribute('href', sheet);
+                head.appendChild(link);
+            });
+        }
+    </script>
+    </head>
+    <body>
+        <h1>This is our Awesome Webpage!</h1>
+        <div id="body">
+            <p>If this send a message to the browser using Socket.Io
+                telling it to refresh the page.
+            </p>
+            <p>hahahhhahaha</p>
+        </div>
+        <div id="event-log">
+        </div>
+    </body>
+</html>
