@@ -5,8 +5,26 @@
     <title></title>
 </head>
 <body>
-    <div id="text">Hello!</div>
+    <div id="content">
+        <div id="room"></div>
+            <div id="room_list"></div>
+            <div id="message"></div>
+        <form id="send-form">
+            <input id="send_message" />
+            <input id="send-button" type="submit" value="send" />
 
-
+            <div id="help">
+                Chat commands
+                <ul>
+                    <li>Change nickname: <code>/nick [username]</code></li>
+                    <li>Join/create room: <code>/join [roomname]</code></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="/socket/io/socket.io.js"></script>
+    <script type="text/javascript" src="./js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="./js/chat.js"></script>
+    <script type="text/javascript" src="./js/chat_ui.js"></script>
 </body>
 </html>
