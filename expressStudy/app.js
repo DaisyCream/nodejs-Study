@@ -69,3 +69,45 @@ app.use(express.static('public'));
 
 app.use('/static', express.static('public'));
 
+
+/*********************************************/
+app.local.title;
+app.locals.email
+
+
+app.local.title = 'my app';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
