@@ -4,42 +4,53 @@ var mime = require('mime');
 var path = require('path');
 var cache = {};
 
-var server = http.createServer(function(req, res){
-    var path = '';
-    if(req.url == '/'){
-        path = 'public/index.js';
-    }else{
-        path = 'public/' + req.url;
-    }
-
-    var absPath = './' + path;
-    fs.exists(absPath,function(exsist){
-        if(!exsist){
-            send404(res);
-            return;
-        }
-        res.writeHead(200, {
-            'Content-Type' : mime.lookup(path.basename(absPath))
-        });
-        getData(absPath, cache, res);
-    });
-
-});
-
 function send404(res){
     res.statusCode = 404;
     res.end("Can't find the file");
 }
 
-function getData(absPath, cache, res){
-    var stream = fs.createReadStream(absPath);
-    if(cache[absPath]){
-        res.end(cache[absPath]);
+var server = http.createServer(function(req,res){
+    var filePath = '';
+    if(req.url == '/'){
+        filePath = 'public/index.html';
     }else{
-        stream.pipe(cache[absPath]);
-        stream.pipe(res);
+        filePath = 'public' + req.url;
+    }
+
+    var absPath = './' + filePath;
+    findCache(absPath,cache,res);
+
+});
+
+function findCache(absPath,cache,res){
+    if(cache[absPath]){
+        sendCacheFile(absPath,cache[absPath],res);
+    }else{
+        fs.exists(absPath,function(exists){
+            if(!exists){
+                send404(res);
+            }else{
+                sendFile(absPath,res);
+            }
+        });
     }
 }
+
+function sendCacheFile(absPath,content,res){
+    res.writeHead(200,{
+        'Content-type':mime.lookup(path.basename(absPath))
+    });
+    res.end(content);
+}
+
+function sendFile(absPath,res){
+    stream = fs.createReadStream(absPath);
+    res.writeHead(200,{
+        'Content-type':mime.lookup(path.basename(absPath))
+    });
+    stream.pipe(res);
+}
+
 
 server.listen(3000,function(){
     console.log('Server running at 127.0.0.1:3000/');
