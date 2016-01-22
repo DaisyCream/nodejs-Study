@@ -11,6 +11,7 @@
             var socket = io.connect();
 
             socket.on('reload', function(){
+                console.log('reload');
                 window.location.reload();
             });
 

@@ -27,3 +27,30 @@ a{
     margin-right: 10px;
 }
 
+
+#room-list {
+    float: right;
+    width: 100px;
+    height: 300px;
+    overflow: auto;
+    border:1px solid #000000;
+}
+
+#room-list div{
+    border-bottom: 1px solid #eee;
+}
+
+#room-list div:hover{
+    background-color: #ddd;
+}
+
+#send-message{
+    width: 700px;
+    margin-bottom: 1em;
+    margin-right: 1em;
+}
+
+#help{
+
+}
+

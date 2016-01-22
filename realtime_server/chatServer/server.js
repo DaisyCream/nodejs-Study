@@ -56,4 +56,6 @@ server.listen(3000,function(){
     console.log('Server running at 127.0.0.1:3000/');
 });
 
+var chatServer = require('./lib/chat_server');
+chatServer.listen(server);
 
