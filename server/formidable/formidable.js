@@ -1,66 +1,69 @@
 var http = require('http');
-var formidable = require('formidable');
+var path = require('path');
 var url = require('url');
-var util = require('util');
+var mime = require('mime');
 var fs = require('fs');
+var formidable = require('formidable');
+
+var root = __dirname;
 
 var server = http.createServer(function(req, res){
-    if(req.url == '/'){
+    var rePath = url.parse(req.url).pathname;
+    var file = false;
+    if(rePath == '/'){
         switch(req.method){
             case 'GET':
-                //console.log(req.headers);
-                show(req, res);
+                file = path.join(root, 'index.html');
+                getHome(file,res);
                 break;
             case 'POST':
-                //console.log(req.headers['content-type']);
-                unload(req, res);
+                upload(req, res);
                 break;
         }
     }
 });
 
-
-/***
- * enctype = multipart/form-data这适用于大的二进制文件，图片，视屏等
- * @param req
- * @param res
- */
-function show(req, res){
-    var html = '' +
-        '<html><head><title>formidable</title></head>' +
-        '<body><form action="/" method="POST" enctype="multipart/form-data">' +
-        '<p><input type="text" name="name"></p>' +
-        '<p><input type="file" name="file"></p>' +
-        '<p><input type="submit" name="Upload"></p>' +
-        '</form></body></html>';
-    res.setHeader('Content-Type', 'text/html');
-    res.setHeader('Content-Length', Buffer.byteLength(html));
-    res.end(html);
+function getHome(filePath, res){
+    var stream = fs.createReadStream(filePath);
+    res.writeHead(200,{
+       'Content-type':  mime.lookup(path.basename(filePath))
+    });
+    stream.pipe(res);
 }
 
+function getSuccess(res){
+    var filePath = path.join(root,'ok.html');
+    var stream = fs.createReadStream(filePath);
+    res.writeHead(200,{
+        'Content-type': mime.lookup(path.basename(filePath))
+    });
+    stream.pipe(res);
+}
 
-function unload(req, res) {
-    if (!isFormData(req)) {
+function upload(req, res){
+    if(!isFormidable(req)){
         res.statusCode = 400;
-        res.end("Bad Request: expection multipart/form-data");
+        res.end('Bad Request: expection multipart/form-data');
         return;
     }
     var form = new formidable.IncomingForm();
     form.uploadDir = '/tmp';
     form.parse(req, function(error, fields, files){
-        res.writeHead(200, {'Content-type': 'text/plain'});
-        res.write('received upload:\n\n');
-        console.log(files.file.path);
-        //console.log(files.upload);
-        fs.rename(files.file.path, './mi/'+fields.name + '.png');
-        res.end(util.inspect({fields: fields, files: files}));
-    });
+        console.log(files);
+        fs.rename(files.file.path, './file/' + fields.name + '.png');
+        getSuccess(res);
+    })
 }
 
-function isFormData(req){
+
+function isFormidable(req){
     var type = req.headers['content-type'] || '';
-    return 0 == type.indexOf("multipart/form-data");
+    return 0 == type.indexOf('multipart/form-data');
 }
+
+
+
+
 
 server.listen(3000);
 console.log('Server running at 127.0.0.1:3000/');
