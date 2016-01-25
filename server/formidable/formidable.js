@@ -1,6 +1,8 @@
 var http = require('http');
 var path = require('path');
 var url = require('url');
+var express = require('express');
+var app = express();
 var mime = require('mime');
 var fs = require('fs');
 var formidable = require('formidable');
@@ -22,6 +24,11 @@ var server = http.createServer(function(req, res){
         }
     }
 });
+
+app.get('/', function(req, res){
+    
+});
+
 
 function getHome(filePath, res){
     var stream = fs.createReadStream(filePath);
