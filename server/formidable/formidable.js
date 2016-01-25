@@ -25,10 +25,6 @@ var server = http.createServer(function(req, res){
     }
 });
 
-app.get('/', function(req, res){
-    
-});
-
 
 function getHome(filePath, res){
     var stream = fs.createReadStream(filePath);
@@ -56,7 +52,6 @@ function upload(req, res){
     var form = new formidable.IncomingForm();
     form.uploadDir = '/tmp';
     form.parse(req, function(error, fields, files){
-        console.log(files);
         fs.rename(files.file.path, './file/' + fields.name + '.png');
         getSuccess(res);
     })
