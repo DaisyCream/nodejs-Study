@@ -2,7 +2,7 @@
  * Created by DaisyCream on 16/1/22.
  */
 var socket = io.connect();
-console.log('fresh');
+
 var createLink = function(path){
     console.log('change',path);
     var head = document.getElementsByTagName('head')[0];
