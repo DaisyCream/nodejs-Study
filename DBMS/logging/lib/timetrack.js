@@ -96,6 +96,33 @@ exports.workHitlistHtml = function(rows){
     for(var i in rows){
         html += '<tr>';
         html += '<td>' + rows[i].data + '</td>';
-        html += '<td>' + rows[i].hours + '</td>'
+        html += '<td>' + rows[i].hours + '</td>';
+        html += '<td>' + rows[i].description + '</td>';
+        if(!rows[i].archive){
+            html += '<td>' + exports.workArchiveForm(rows[i].id) + '</td>'
+        }
+        html += '<td>' + exports.workDeleteForm(rows[i].id) + '</td>';
+        html += '</tr>';
     }
+    html += '</table>';
+    return html;
+};
+
+exports.workFormHtml = function(){
+    var html = '<form method="POST" action="/">' +
+        '<p>Date (YYYY-MM-DD) :<br/><input name="data" type="text"></p>' +
+        '<p>Hours worked:>}<br/><input name="hours" type="text"/></p>' +
+        '<p>Description<br/>' +
+        '<textarea name="description"></textarea></p>' +
+        '<input type="submit" value="Add" />' +
+        '</form>';
+    return html;
+};
+
+exports.workArchiveForm = function(id){
+    return exports.actionForm(id, '/archive', 'Archive');
+};
+
+exports.workDeleteForm = function(id){
+    return exports.actionForm(id, '/delete', 'Delete');
 };
