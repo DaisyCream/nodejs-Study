@@ -1,11 +1,10 @@
 /**
  * Created by DaisyCream on 16/2/28.
  */
-var exec = require("child_process").exec;
+var querystring = require('querystring');
 
-function start(res){
+function start(res, postData){
     console.log("Request handler 'start' was called");
-
 
     var body = '<html>'+
         '<head>'+
@@ -20,20 +19,19 @@ function start(res){
         '</body>'+
         '</html>';
 
-        res.writeHead(200,{
-            "Content-Type" : "text/html"
-        });
-        res.write(body);
-        res.end();
+    res.writeHead(200,{
+        "Content-Type" : "text/html"
+    });
+    res.write(body);
+    res.end();
+
 }
 
-function upload(res){
-    console.log("Request handler 'upload' was called");
-    res.writeHead(200, {
-        "Content-Type" : "text/plain"
-    });
-    res.write("Hello Upload");
-    res.end();
+function upload(response, postData) {
+    console.log("Request handler 'upload' was called.");
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write("You've sent the text: " + querystring.parse(postData).text);
+    response.end();
 }
 
 exports.start = start;
