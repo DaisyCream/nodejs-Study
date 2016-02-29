@@ -26,30 +26,33 @@ function upload(req, res){
         var form = new formidable.IncomingForm();
         form.uploadDir = '/tmp';
         form.parse(req, function(error, fields, files){
-            data.filename = fields.filename;
-            data.file = files.file;
+            data.filename = fields.fileName;
+            data.file = files.file.path;
+            fileOk();
         });
     }
 
     function isFormData(req){
         var type = req.headers['content-type'] || '';
-        console.log(req.headers);
         return 0 == type.indexOf("multipart/form-data");
     }
 
     upload(req,res);
 
-    res.writeHeader(200,
-        {'Content-Type':"text/html"});
-    res.write("<html>" +
-        "<head>" +
-        "<meta scharset='UTF-8'>" +
-        "</head>" +
-        "<body>" +
-        "<a href='"+ data.file +"'>"+ data.filename +"</a>" +
-        "</body>" +
-        "</html>");
-    res.end();
+    function fileOk(){
+        res.writeHeader(200,
+            {'Content-Type':"text/html"});
+        res.write("<html>" +
+            "<head>" +
+            "<meta scharset='UTF-8'>" +
+            "</head>" +
+            "<body>" +
+            "<div>"+ data.file +"</div>" +
+            "<div>"+ data.filename +"</div>" +
+            "</body>" +
+            "</html>");
+        res.end();
+    }
 }
 
 exports.start = start;
