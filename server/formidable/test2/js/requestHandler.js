@@ -4,7 +4,6 @@
 var fs = require('fs');
 var formidable = require('formidable');
 
-
 function start(req, res){
     res.writeHead(200,{
         "Content-Type":"text/html"
@@ -28,7 +27,11 @@ function upload(req, res){
         form.parse(req, function(error, fields, files){
             data.filename = fields.fileName;
             data.file = files.file.path;
-            fileOk();
+            var newPath = "../img/"+data.filename+".png";
+            fs.rename(data.file,newPath,function(){
+                console.log("picture");
+                fileOk();
+            });
         });
     }
 
@@ -40,6 +43,7 @@ function upload(req, res){
     upload(req,res);
 
     function fileOk(){
+        console.log("show");
         res.writeHeader(200,
             {'Content-Type':"text/html"});
         res.write("<html>" +
@@ -47,7 +51,7 @@ function upload(req, res){
             "<meta scharset='UTF-8'>" +
             "</head>" +
             "<body>" +
-            "<div>"+ data.file +"</div>" +
+            "<img src='../img/gtrgr.png'>" +
             "<div>"+ data.filename +"</div>" +
             "</body>" +
             "</html>");
