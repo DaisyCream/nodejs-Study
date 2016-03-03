@@ -1,10 +1,10 @@
 /**
  * Created by DaisyCream on 16/2/29.
  */
-function route(handle, pathname, res, postData){
+function route(handle, pathname, res, req){
+    console.log("route already get " + pathname);
     if(typeof handle[pathname] === "function"){
-        console.log("route already get " + pathname);
-        handle[pathname](res, postData);
+        handle[pathname](res, req);
     }else{
         res.writeHead(404,{
             'Content-Type' : "text/plain"
@@ -13,3 +13,5 @@ function route(handle, pathname, res, postData){
         res.end();
     }
 }
+
+exports.route = route;

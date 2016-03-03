@@ -9,13 +9,7 @@ function start(route, handle){
         var pathname = url.parse(req.url).pathname;
         console.log("the" + pathname + "");
 
-        var postData = '';
-        req.addListener("data",function(data){
-            postData+=data;
-        });
-        req.addListener("end", function(){
-                route(handle, pathname, res, postData);
-        });
+        route(handle, pathname, res, req);
     }
 
     http.createServer(onRequest).listen(3000);
