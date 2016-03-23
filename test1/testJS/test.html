@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul>
+    <li>123</li>
+    <li>123</li>
+    <li>123</li>
+    <li>123</li>
+    <li>123</li>
+    <li>123</li>
+</ul>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    var ul = document.getElementsByTagName('ul')[0];
+
+    function getEventTarget(e){
+        e = e || window.event;
+        var target = e.target || e.srcElement;
+        return target;
+    }
+
+    ul.onmousemove = function(e){
+        var target = getEventTarget(e);
+        target.style.color = "red";
+    };
+
+    ul.onmouseout = function(e){
+        var target = getEventTarget(e);
+        target.style.color = "";
+    };
+
+
+</script>

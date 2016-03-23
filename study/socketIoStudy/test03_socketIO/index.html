@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            border-radius: 10px;
+            border: 2px solid pink;
+            width:800px;
+        }
+    </style>
+</head>
+<body>
+    <h1></h1>
+    <div id="result"></div>
+</body>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect("http://localhost:8000");
+
+    socket.on('connect', function(){
+        console.log("Client has connected to the server!");
+    });
+
+    socket.on("message",function(data){
+        document.getElementById('result').innerHTML+=data + "<br />"
+    });
+
+
+    socket.on("emitMessage", function (data) {
+        document.getElementById('result').innerHTML+=data.hello + '<br />';
+    });
+
+    socket.on("disconnet",function(){
+        console.log("The client has disconnected");
+    });
+
+    function sendMessageToServer(message){
+        socket.send(message);
+    }
+
+    var date = new Date();
+    var s = "Time:" + data.toString() + "Today is a nice day, wish you happy";
+    setInterval('sendMessageToServer(ms)',1000);
+
+
+</script>
+</html>

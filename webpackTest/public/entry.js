@@ -1,0 +1,4 @@
+/**
+ * Created by DaisyCream on 16/3/16.
+ */
+document.write("It works.");

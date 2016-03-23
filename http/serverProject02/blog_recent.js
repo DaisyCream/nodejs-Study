@@ -15,9 +15,9 @@ var fs = require('fs');
 //                        console.log(err);
 //                        res.end(err);
 //                    }else{
-//                        var tmpl = data.toString();
+//                        var temp = data.toString();
 //
-//                        var html = tmpl.replace('%', titles.join('</li><li>'));
+//                        var html = temp.replace('%', titles.join('</li><li>'));
 //                        res.writeHead(200,{
 //                            'Content-Type' : text/html
 //                        });
