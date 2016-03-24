@@ -3,10 +3,19 @@
  */
 var http = require('http');
 var io = require("socket.io");
+var fs = require('fs');
 var server = http.createServer(function(req, res){
     res.writeHead(200,{"Content-Type":"text/html"});
-    res.write("WebSocket Start........");
-    res.end("");
+    var data="";
+    fs.readFile("index.html","utf-8",function(error,chunk){
+        if(error){
+            console.log("file not exsist");
+        }
+        else{
+            data+=chunk;
+            res.end(data);
+        }
+    });
 }).listen(8000);
 
 var socket = io.listen(server);

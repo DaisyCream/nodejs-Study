@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    #checkBlock{
+        width: 60%;
+        height: 500px;
+        overflow: scroll;
+        border: 1px solid #000000;
+    }
+
+    .serverChat{
+        color: #0086b3;
+    }
+
+    .clientChat{
+        color: #843534;
+    }
+
+
+</style>
+<body>
+    <div id="chatBlock">
+        <div class="serverChat"></div>
+        <div class="clientChat"></div>
+    </div>
+
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var checkBlock = document.getElementById('checkBlock');
+    function addClientChat(data){
+        var s = document.createElement('div');
+        s.setAttribute('class','serverChat');
+    }
+
+    var socket = io.connect("http://localhost:8000");
+    socket.on('connect',function(){
+        console.log("Client is connect");
+    });
+
+    socket.on('message',function(data){
+        addClientChat(data);
+    });
+
+
+
+
+
+</script>
+</html>
