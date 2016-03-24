@@ -4,47 +4,80 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<style>
-    #checkBlock{
+<style type="text/css">
+    #chatBlock{
         width: 60%;
-        height: 500px;
+        height: 300px;
         overflow: scroll;
         border: 1px solid #000000;
     }
 
-    .serverChat{
+    #chatBlock .serverChat{
         color: #0086b3;
     }
 
-    .clientChat{
+    #chatBlock .clientChat{
         color: #843534;
     }
-
-
 </style>
 <body>
     <div id="chatBlock">
-        <div class="serverChat"></div>
-        <div class="clientChat"></div>
+        <!--<div class="serverChat"></div>-->
+        <!--<div class="clientChat"></div>-->
     </div>
+    <from id="sendMessage">
+        <input type="text" id="text"/>
+        <input type="submit" value="submit" id="button"/>
+    </from>
 
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var checkBlock = document.getElementById('checkBlock');
+    var chatBlock = document.getElementById('chatBlock');
+    var text = document.getElementById('text');
+    var button = document.getElementById('button');
     function addClientChat(data){
         var s = document.createElement('div');
+        var sText = document.createTextNode(data);
+        s.appendChild(sText);
         s.setAttribute('class','serverChat');
+        chatBlock.appendChild(s);
+    }
+
+    function addServerChat(data){
+        var s = document.createElement('div');
+        var sText = document.createTextNode(data);
+        s.appendChild(sText);
+        s.setAttribute('class','clientChat');
+        chatBlock.appendChild(s);
     }
 
     var socket = io.connect("http://localhost:8000");
+
     socket.on('connect',function(){
         console.log("Client is connect");
     });
 
     socket.on('message',function(data){
-        addClientChat(data);
+        addServerChat(data);
     });
+
+    button.onclick = function(){
+        console.log(text.value);
+        var content = text.value;
+        if(content.length == 0){
+            alert("Please enter the content");
+        }
+        else{
+            SendServerMsg(content);
+        }
+    };
+
+    function SendServerMsg(data){
+        addClientChat(data);
+        socket.send(data);
+    }
+
 
 
 
