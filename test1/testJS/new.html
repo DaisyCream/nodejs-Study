@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+<style type="text/css">
+    * {margin:0; padding:0;}
+    body {background-color:#FFFFFF;}
+    td,input,button,select,body {font-family:"lucida Grande",Verdana;font-size:12px;}
+    .ico_big{float:left;margin:2px 8px 0 0;}
+    img{border:none;}
+    .toolbg a, .attbg a {color:#244281;}
+    .txt_left{text-align:left;}
+    .attbg {background-color:#e8edf4;}
+    .toolbg {background-color:#D2DBEA;}
+</style>
+</head>
+<body>
+<div style="margin:10px auto; width:500px;padding:50px; border:1px solid #ccc;">
+<span onClick="ScrollToAttach();" style="cursor:pointer">
+<a id="linkAttachment"><img src="http://m369.mail.qq.com/zh_CN/htmledition/images/newicon/fj_min/fu_rar.gif" align="absmiddle" />可以点击我试试!</a>
+</span>
+    <div style="margin:500px;"></div>
+    <div id="attachment" style="padding:2px;margin-bottom:15px;*margin-bottom:5px;display: color:#666;" class="attbg">
+        <div style="padding:6px 0 10px 6px;" class="txt_left">
+            <b style="font-size:14px;">
+                <img src="http://res.qqmail.com/zh_CN/htmledition/images/icon_att3476l.gif" align="absmiddle" class="showattch" border="0" /> 附件
+            </b>(<span id="attachmentCount">1</span> 个)
+        </div>
+        <div style="padding:0 8px 6px 12px;background:#fff;line-height:140%;">
+            <div class="graytext clr" style="padding-top:12px;">
+                <b style="color:#000;font-weight:bold;font-size:12px;" >普通附件</b>
+                <div style="padding:1px 0 0 0; color:#666;">(已通过卡巴斯基杀毒引擎扫描)</div>
+            </div>
+            <div style="margin-top:10px;">
+                <div class="ico_big">
+                    <a href="javascript:;">
+                        <img style="width:auto;" src="http://m369.mail.qq.com/zh_CN/htmledition/images/newicon/fj_max/fu_rar.gif" />
+                    </a>
+                </div>
+                <div class="name_big">
+                    <span>ecomstore.tar</span><span class="graytext"> (1.46M)</span>
+                    <div class="down_big" >
+                        <a title="请直接点击或鼠标右键转下载工具打开，请不要拖拽到下载工具悬浮框中" href="javascript:;">下载</a>  
+                        <a href="javascript:;">打开</a>  
+                        <a href="javascript:;">在线预览</a>  
+                        <a href="javascript:;">保存到我的随身盘</a>
+                    </div>
+                </div>
+            </div>
+            <div class="clr" style="height:8px;overflow:hidden"></div>
+        </div>
+    </div>
+    <div style="margin:900px;"></div>
+</div>
+<button style="position:absolute; top:600px; left:100px; width:200px;" onclick="scrollIntoViewHandler(this)">使用scrollIntoView:true</button>
+<script type="text/javascript">
+    function scrollIntoViewHandler(_this) {
+        if(_this.flag) {
+            _this.innerHTML = _this.innerHTML.replace(/false/, 'true');
+            _this.flag = false;
+        } else {
+            _this.innerHTML = _this.innerHTML.replace(/true/, 'false');
+            _this.flag = true;
+        }
+        document.getElementById("attachment").scrollIntoView(_this.flag);
+    }
+    function ScrollToAttach(vq) {
+        vq = vq || "attachment";
+        var bw = document.getElementById(vq);
+        if (document.documentElement.scrollHeight > document.documentElement.clientHeight) {
+            //bw.scrollIntoView(document.documentElement.clientHeight < bw.offsetHeight);
+            bw.scrollIntoView(false);
+        }
+        Splash(vq, 4);
+    }
+    /**
+     * 滚动至...
+     * @param {Object} vq
+     * @param {Object} times
+     * @param {Object} isNotInit
+     */
+    function Splash(vq, times, isNotInit) {
+        var ah = arguments.callee,
+                afx = document.getElementById(vq);
+        if (!isNotInit || !ah.time) {
+            ah.orgclass = afx.className;
+            ah.time = 0;
+        }
+        afx.className = (ah.time % 2 == 0) ? "toolbg": ah.orgclass;
+        if (++ah.time < times) {
+            setTimeout(function() {
+                Splash(vq, times, true);
+            }, 70);
+        }
+    }
+</script>
+</body>
+</html>

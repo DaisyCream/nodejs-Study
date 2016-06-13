@@ -1,0 +1,8 @@
+{
+  "name": "lesson1",
+  "description": "https://github.com/alsotang/node-lessons/tree/master/lesson1",
+  "main": "./app.js",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}

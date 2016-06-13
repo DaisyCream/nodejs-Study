@@ -5,36 +5,38 @@
     <title></title>
 </head>
 <body>
-<ul>
-    <li>123</li>
-    <li>123</li>
-    <li>123</li>
-    <li>123</li>
-    <li>123</li>
-    <li>123</li>
+<ul style="color:#000;font-size: 13px" onclick="console.log(1)">
+    <li id="ll" data-myname="wahah">1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
 </ul>
 
 </body>
 </html>
-
-<script type="text/javascript">
-    var ul = document.getElementsByTagName('ul')[0];
-
-    function getEventTarget(e){
-        e = e || window.event;
-        var target = e.target || e.srcElement;
-        return target;
-    }
-
-    ul.onmousemove = function(e){
-        var target = getEventTarget(e);
-        target.style.color = "red";
-    };
-
-    ul.onmouseout = function(e){
-        var target = getEventTarget(e);
-        target.style.color = "";
-    };
+<script type="text/javascript" src="unit8.js"></script>
 
 
-</script>
+<!--<script type="text/javascript">-->
+    <!--var ul = document.getElementsByTagName('ul')[0];-->
+
+    <!--function getEventTarget(e){-->
+        <!--e = e || window.event;-->
+        <!--var target = e.target || e.srcElement;-->
+        <!--return target;-->
+    <!--}-->
+
+    <!--ul.onmousemove = function(e){-->
+        <!--var target = getEventTarget(e);-->
+        <!--target.style.color = "red";-->
+    <!--};-->
+
+    <!--ul.onmouseout = function(e){-->
+        <!--var target = getEventTarget(e);-->
+        <!--target.style.color = "";-->
+    <!--};-->
+
+<!--</script>-->
+
