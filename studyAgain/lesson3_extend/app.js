@@ -53,6 +53,31 @@ function getUserMsg(userUrl){
         });
 }
 
+//function getUserMsg(userUrl){
+//    userUrl.forEach(function(item){
+//        superagent.get(item).end(function(err, msg){
+//            if(err){
+//                //return;
+//            }
+//
+//            var $ = cheerio.load(msg.text);
+//
+//            userMsg.push({
+//                name : $('#content .dark').html(),
+//                score : $('#content .big').text().trim(),
+//                'count' : count
+//            });
+//
+//            if(count == 39){
+//                console.log(userMsg);
+//            }
+//            count++;
+//        });
+//
+//    })
+//
+//}
+
 
 //function getFirstMsg(userUrl){
 //    superagent.get(userUrl).end(function(err, msg){
