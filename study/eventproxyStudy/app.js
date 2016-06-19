@@ -1,31 +1,33 @@
 var EventProxy = require('eventproxy');
 
+/**
+ * EventProxy fail
+ * @param callback
+ */
+exports.getContent = function(callback){
+    var ep = new EventProxy();
+    ep.all('tpl','data',function(tpl, data){
+        callback(null, {
+            template: tpl,
+            data : data
+        });
+    });
 
-//
-var ep = EventProxy.create('tpl', 'data', function(tpl, data){
+    /*
+    * ep.fail(callback)语句实现类似于
+    * ep.bind('error', function(err){
+    *   ep.unbind;
+    *   callback(err);
+    * })
+    *
+    * 你可以抛出错误，ep.throw(err) ===  ep.emit('error', err);
+    * */
+    ep.fail(callback);
 
-});
-
-var ep1 = EventProxy();
-
-ep1.all('tpl', function(tpl){
-    console.log();
-});
-
-
-ep1.emit('tpl', "hhah");
-
-
-var ep2 = new EventProxy();
-
-ep.after('got_file', files.length, function(list){
+    fs.readFile('','utf-8', ep.done(callback));
+};
 
 
-});
 
-for(var i=0;i<files.length; i++){
-    fs.readFile(files[i], 'utf-8', function(err, content){
-        ep.emit('got_file', content);
-    })
 
-}
+
